@@ -169,6 +169,7 @@ def kbank_money_exchange_rate_init():
     result = r.json()
     for item in result:
         cur_unit = item.get("cur_unit")
+        cur_unit = re.sub(r'\s*\(100\)', '', cur_unit)
         cur_nm = item.get("cur_nm")
         deal_bas_r = item.get("deal_bas_r")
         CUR = CURRENCY_LIST.get(cur_unit)
@@ -205,35 +206,10 @@ def money_exchange_rate(search, to=None):
                         return (kor / float(tbr), key, key)
     return (0, None, None)
 
-# 정확한 일치 비교
-def is_exact_match(strings, aliases):
-    return any(strings == alias for alias in aliases)
-
-def money_exchange_rate_exact(search, to="원"):
-    try:
-        numbers = re.findall(r'\d+', search)[0]
-        strings = re.findall(r'[^\d\s]+', search)[0]
-    except:
-        return (0, None, None)
-    
-    for key, value in CURRENCY_LIST.items():
-        if is_exact_match(strings, value.get("aliases")):
-            dbr = value.get("deal_bas_r").replace(",", "") if value.get("deal_bas_r") else 0
-            kor = float(dbr) * float(numbers)
-
-            if to is None:
-                return (kor, value.get("country"), value.get("country"))
-            else:
-                for k, v in CURRENCY_LIST.items():
-                    if is_exact_match(to, v.get("aliases")):
-                        tbr = v.get("deal_bas_r").replace(",", "") if v.get("deal_bas_r") else 0
-                        key = v.get("country")
-                        return (kor / float(tbr), key, key)
-    return (0, None, None)
 
 if __name__ == "__main__":
     kbank_money_exchange_rate_init()
-    print(money_exchange_rate("900달러"))
+    print(money_exchange_rate("900엔"))
     #kbank_money_exchange_rate()
     #print(google_money_exchange_rate("100달러", "엔"))
     #print(google_money_exchange_rate("100달러", "원"))
