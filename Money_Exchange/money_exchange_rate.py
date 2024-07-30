@@ -209,7 +209,7 @@ def money_exchange_rate(search, to=None):
 
 if __name__ == "__main__":
     kbank_money_exchange_rate_init()
-    print(money_exchange_rate("900엔"))
+    print(money_exchange_rate("900달러"))
     #kbank_money_exchange_rate()
     #print(google_money_exchange_rate("100달러", "엔"))
     #print(google_money_exchange_rate("100달러", "원"))
