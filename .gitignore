@@ -164,3 +164,8 @@ cython_debug/
 
 #token
 .env
+
+#미허가 파일
+.mp4
+.png
+.wav
