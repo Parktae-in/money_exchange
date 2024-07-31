@@ -7,6 +7,10 @@ import json
 load_dotenv()
 TOKEN = os.getenv("TOKEN")
 
+#chatid 불러오기
+f = open('telegram_chatid.txt', 'r')
+CHAT_ID = int(f.read().strip())
+
 #json 형태로 발송한다는것을 표시
 header = {"Content-Type": "application/json"}
 
@@ -130,14 +134,14 @@ def sendContact(chat_id, phone, first_name, vcard=None):
 #<u>언더라인</u><s>스트라이크</s>
 #"""
 
-#print(sendMessage(6366489629, message_html, protect=True, disable_notification=True, parse_mode="HTML"))
+#print(sendMessage(CHAT_ID, message_html, protect=True, disable_notification=True, parse_mode="HTML"))
 
-#print(sendPhoto(6366489629, open("google_logo.png", "rb"), "사진테스트"))
-#print(sendVideo(6366489629, open("videotest.mp4", "rb"), "비디오 전송 테스트"))
-#print(sendVideo(6366489629, open("audio.wav", "rb"), "오디오 전송 테스트"))
-#print(sendDocument(6366489629, open("document.txt", "rb"), "파일 전송"))
-#print(sendChatAction(6366489629, "upload_video"))
-#print(sendVenue(6366489629, 35.125479, 136.909623, "테스트", "나고야"))
+#print(sendPhoto(CHAT_ID, open("google_logo.png", "rb"), "사진테스트"))
+#print(sendVideo(CHAT_ID, open("videotest.mp4", "rb"), "비디오 전송 테스트"))
+#print(sendVideo(CHAT_ID, open("audio.wav", "rb"), "오디오 전송 테스트"))
+#print(sendDocument(CHAT_ID, open("document.txt", "rb"), "파일 전송"))
+#print(sendChatAction(CHAT_ID, "upload_video"))
+#print(sendVenue(CHAT_ID, 35.125479, 136.909623, "테스트", "나고야"))
 
 data = "BEGIN:VCARD\n"
 data += "VERSION:3.0\n"
@@ -146,5 +150,5 @@ data += "TEL;TYPE=WORK;CELL:010 2222 2222\n"
 data += "EMAIL;TYPE=WORK:asdf@gmail.com\n"
 data += "URL;TYPE=WORK:https://www.naver.com\n"
 data += "END:VCARD\n"
-print(sendContact(6366489629, "010-0000-0000", "park", data))
+print(sendContact(CHAT_ID, "010-0000-0000", "park", data))
 
