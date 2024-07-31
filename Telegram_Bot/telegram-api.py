@@ -23,6 +23,7 @@ while True:
     #print(data)
     #저장된 ID값 변경
     for item in data.get("result"):
+        print(item)
         new_id = item.get("update_id")
         if old_id < new_id:
             old_id = new_id
